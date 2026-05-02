@@ -11,7 +11,29 @@ public abstract class Mascota {
 	protected String raza;
 	protected String condicionMedica;
 	
-	public Mascota(String nombre, LocalDate fechaNacimiento, double peso, String especie, String raza, String condicionMedica) {
+	public Mascota(String nombre, LocalDate fechaNacimiento, double peso, String especie, String raza, String condicionMedica) throws AdopcionException {
+		if (nombre == null || nombre.trim().isEmpty()) {
+			throw new AdopcionException("El nombre de la mascota no puede estar vacío.");
+		}
+		if (!nombre.matches("[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]+")) {
+			throw new AdopcionException("El nombre de la mascota solo debe contener letras.");
+		}
+		
+		// Validación de Fecha de Nacimiento
+		if (fechaNacimiento.isAfter(LocalDate.now())) {
+			throw new AdopcionException("La fecha de nacimiento no puede estar en el futuro.");
+		}
+		
+		// Validación de Peso
+		if (peso <= 0) {
+			throw new AdopcionException("El peso de la mascota debe ser mayor a 0.");
+		}
+		
+		// Validación de Especie
+		if (especie == null || especie.trim().isEmpty()) {
+			throw new AdopcionException("La especie no puede estar vacía.");
+		}
+		
 		this.nombre = nombre;
 		this.fechaNacimiento = fechaNacimiento;
 		this.peso = peso;

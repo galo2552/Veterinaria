@@ -4,7 +4,7 @@ import java.time.LocalDate;
 
 public class Perro extends Mascota{
 
-	public Perro(String nombre, LocalDate fechaNacimiento, double peso, String especie, String raza, String condicionMedica) {
+	public Perro(String nombre, LocalDate fechaNacimiento, double peso, String especie, String raza, String condicionMedica) throws AdopcionException {
 		super(nombre, fechaNacimiento, peso, especie, raza, condicionMedica);
 		
 	}
@@ -17,15 +17,12 @@ public class Perro extends Mascota{
 			recomendacion += " Condición médica: " + this.condicionMedica + ".";
 		} 
 		
-		if (this.raza != null && !this.raza.isEmpty()) {
-			recomendacion += " Raza: " + this.raza + ".";
-			if (this.raza.equalsIgnoreCase("Labrador")) {
+			if ("Labrador".equalsIgnoreCase(this.raza)) {
 				recomendacion += " Requiere ejercicio regular y una dieta equilibrada.";
-			} else if (this.raza.equalsIgnoreCase("Bulldog")) {
+			} else if ("Bulldog".equalsIgnoreCase(this.raza)) {
 				recomendacion += " Evitar el ejercicio excesivo debido a problemas respiratorios.";
 			}
 			
-		}
 		
 		return recomendacion;
 	}
